@@ -1,0 +1,17 @@
+Server:
+  HttpPort: 8000
+  ReadTimeout: 60
+  WriteTimeout: 60
+  LogOut: std
+MySQL:
+  UserName: root
+  Password: mysql
+  Host: 127.0.0.1:3306
+  DBName: passwd
+  Charset: utf8
+  ParseTime: True
+Redis:
+  Host: 127.0.0.1:6379
+  Db: 0
+  Password: redis
+  DefaultExpireTime: 30

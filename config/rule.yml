@@ -1,0 +1,23 @@
+News:
+  - 
+    Source: 1
+    Type: json
+    URL: 1
+    List: 1
+    Title: 1
+    Rank: 1
+    Author: 1
+    PublishTime: 1
+    Abstract: 1
+    Cron: "@every 1m"
+  -                                                                                                                                           
+    Source: 2
+    Type: html
+    URL: 1
+    List: 1
+    Title: 1
+    Rank: 1
+    Author: 1
+    PublishTime: 1
+    Abstract: 1
+    Cron: "@every 1m"
