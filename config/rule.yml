@@ -1,23 +1,73 @@
-News:
+News: 
+# https://www.w3school.com.cn/cssref/css_selectors.asp
   - 
-    Source: 1
-    Type: json
-    URL: 1
-    List: 1
-    Title: 1
-    Rank: 1
-    Author: 1
-    PublishTime: 1
-    Abstract: 1
-    Cron: "@every 1m"
-  -                                                                                                                                           
-    Source: 2
-    Type: html
-    URL: 1
-    List: 1
-    Title: 1
-    Rank: 1
-    Author: 1
-    PublishTime: 1
-    Abstract: 1
-    Cron: "@every 1m"
+    DataType: html
+    Parser: css
+    StoreType: mysql
+    Cron: "@every 5m"
+    DataSource: 百度热搜
+    ListUrl: "https://top.baidu.com/board?tab=realtime"
+    RawListUrl: "https://top.baidu.com/board?tab=realtime"
+    Item: ".category-wrap_iQLoo "
+    NewsUrl: ".title_dIF3B  "
+    Title: ".c-single-text-ellipsis "
+    Rank: ".index_1Ew5p "
+    Author: ""
+    PublishTime: ""
+    Abstract: ".large_nSuFU "
+    IsHot: ".c-text-hot_3ZhI9 "
+    ImgUrl: ".img-wrapper_29V76 img "
+  - 
+    DataType: json
+    Parser: json
+    StoreType: mysql
+    Cron: "@every 5m"
+    DataSource: 央视国内新闻
+    ListUrl: "https://news.cctv.com/2019/07/gaiban/cmsdatainterface/page/china_1.jsonp?cb=china"
+    RawListUrl: "https://news.cctv.com/china/"
+    Item: "data.list"
+    NewsUrl: "url"
+    Title: "title"
+    Rank: ""
+    Author: ""
+    PublishTime: "focus_date"
+    Abstract: "brief"
+    IsHot: ""
+    ImgUrl: "image"
+  - 
+    DataType: json
+    Parser: json
+    StoreType: mysql
+    Cron: "@every 5m"
+    DataSource: 央视国际新闻
+    ListUrl: "https://news.cctv.com/2019/07/gaiban/cmsdatainterface/page/world_1.jsonp?cb=world"
+    RawListUrl: "https://news.cctv.com/world/"
+    Item: "data.list"
+    NewsUrl: "url"
+    Title: "title"
+    Rank: ""
+    Author: ""
+    PublishTime: "focus_date"
+    Abstract: "brief"
+    IsHot: ""
+    ImgUrl: "image"
+  - 
+    DataType: json
+    Parser: json
+    StoreType: mysql
+    Cron: "@every 5m"
+    DataSource: 环球网国际新闻
+    ListUrl: "https://world.huanqiu.com/api/list?node=%22/e3pmh22ph/e3pmh2398%22,%22/e3pmh22ph/e3pmh26vv%22,%22/e3pmh22ph/e3pn6efsl%22,%22/e3pmh22ph/efp8fqe21%22&offset=0&limit=20"
+    RawListUrl: "https://world.huanqiu.com/"
+    Item: "list"
+    NewsUrl: "aid"
+    Title: "title"
+    Rank: ""
+    Author: ""
+    PublishTime: "ctime"
+    Abstract: "summary"
+    IsHot: ""
+    ImgUrl: "image"
+
+
+    

@@ -2,12 +2,12 @@ Server:
   HttpPort: 8000
   ReadTimeout: 60
   WriteTimeout: 60
-  LogOut: std
+  LogOut: stdio
 MySQL:
   UserName: root
   Password: mysql
   Host: 127.0.0.1:3306
-  DBName: passwd
+  DBName: light_news
   Charset: utf8
   ParseTime: True
 Redis:

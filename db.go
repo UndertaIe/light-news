@@ -7,6 +7,7 @@ import (
 	"gorm.io/gorm"
 )
 
+var dbSettings DBSetting
 
 func NewDBEngine(s *DBSetting) (*gorm.DB, error) {
 	dsn := fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=%s&parseTime=%t&loc=Local", s.UserName, s.Password, s.Host, s.DBName, s.Charset, s.ParseTime)

@@ -1,0 +1,19 @@
+CREATE DATABASE IF NOT EXISTS `light_news`;
+
+USE `light_news`;
+
+CREATE TABLE IF NOT EXISTS `news_model`(
+    `news_id` INTEGER NOT NULL AUTO_INCREMENT,
+    `news_url` VARCHAR(256) NOT NULL,
+    `title` VARCHAR(64) NOT NULL DEFAULT "",
+    `rank` TINYINT(4) NOT NULL DEFAULT 0,
+    `author` VARCHAR(32) NOT NULL DEFAULT "",
+    `abstract` VARCHAR(256) NOT NULL DEFAULT "",
+    `publish_time` DATETIME NOT NULL DEFAULT "1970-01-01 00:00:00",
+    `is_hot` BOOLEAN NOT NULL DEFAULT FALSE,
+    `img_url` VARCHAR(256) NOT NULL DEFAULT "",
+    `list_url` VARCHAR(256) NOT NULL DEFAULT "",
+    `raw_url` VARCHAR(256) NOT NULL DEFAULT "",
+  PRIMARY KEY (`news_id`),
+  UNIQUE KEY `uk_news_url` (`news_url`)
+)ENGINE=INNODB DEFAULT CHARSET=utf8;

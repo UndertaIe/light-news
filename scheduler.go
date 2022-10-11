@@ -12,8 +12,8 @@ var (
 )
 
 type Scheduler struct {
-	rules    sync.Map // URL: *Rule
-	jobs     sync.Map // URL: cron.EntryID
+	rules    sync.Map // {URL: *Rule}
+	jobs     sync.Map // {URL: cron.EntryID}
 	cr       *cron.Cron
 	addCh    chan *Rule
 	deleteCh chan *Rule
@@ -72,9 +72,9 @@ func (s *Scheduler) schedule(r *Rule) {
 	// 将Job添加到cron
 	eid, err := s.cr.AddFunc(r.Cron, NewJob(r))
 	if err != nil {
-		log.Println("s.cr.AddFunc(r.Cron, NewJob(r)) error: ", eid, err)
+		log.Println("schedule job error msg: ", eid, err)
 	}
-	log.Printf("s.cr.AddFunc(r.Cron, NewJob(r)) msg: %v, entityID: %v\n", r, eid)
+	log.Printf("schedule job msg: %#v, entityID: %v\n", r, eid)
 	s.jobs.Store(r.Key(), eid)
 	s.rules.Store(r.Key(), r)
 }

@@ -3,13 +3,8 @@ package main
 import (
 	"flag"
 	"log"
-	"net/http"
-	"strconv"
-	"time"
 
-	"github.com/UndertaIe/go-eden/utils"
 	"github.com/spf13/viper"
-	"gorm.io/gorm"
 )
 
 var Path = flag.String("config", "config", "配置文件目录")
@@ -17,13 +12,13 @@ var Path = flag.String("config", "config", "配置文件目录")
 var svp *viper.Viper // server viper
 var rvp *viper.Viper // rule viper
 
-var DB *gorm.DB
+var ss ServerSetting
 
 func main() {
-	InitDatabase()
+	InitSettings()
 
 	RunScheduler()
-	
+
 	RunServer()
 }
 
@@ -59,31 +54,14 @@ func RunScheduler() {
 	DefaultScheduler.Start()
 }
 
-func RunServer() {
-	var ss ServerSetting
-	err := svp.UnmarshalKey("Server", &ss)
+func InitSettings() {
+	var err error
+	err = svp.UnmarshalKey("MySQL", &dbSettings)
 	if err != nil {
-		log.Fatalln("vp.UnmarshalKey(\"Server\", &s) err: ", err)
+		log.Fatalln("svp.UnmarshalKey err: ", err)
 	}
-	handlers := Handlers()
-	s := &http.Server{
-		Addr:           ":" + strconv.Itoa(ss.HttpPort),
-		Handler:        handlers,
-		ReadTimeout:    ss.ReadTimeout * time.Second,
-		WriteTimeout:   ss.WriteTimeout * time.Second,
-		MaxHeaderBytes: 1 << 20,
-	}
-	utils.ListenAndServe(s)
-}
-
-func InitDatabase() {
-	var dbSettings DBSetting
-	err := svp.UnmarshalKey("MySQL", &dbSettings)
+	err = svp.UnmarshalKey("Server", &ss)
 	if err != nil {
-		log.Fatalln("UnmarshalKey(\"MySQL\", &rules) err: ", err)
-	}
-	DB, err = NewDBEngine(&dbSettings)
-	if err != nil {
-		log.Fatalln("NewDBEngine(*dbSettings) err: ", err)
+		log.Fatalln("svp.UnmarshalKey err: ", err)
 	}
 }
