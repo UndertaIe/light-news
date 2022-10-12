@@ -68,6 +68,37 @@ News:
     Abstract: "summary"
     IsHot: ""
     ImgUrl: "image"
-
-
-    
+  - 
+    DataType: json
+    Parser: json
+    StoreType: mysql
+    Cron: "@every 5m"
+    DataSource: 环球网国内新闻
+    ListUrl: "https://china.huanqiu.com/api/list?node=%22/e3pmh1nnq/e3pmh1obd%22,%22/e3pmh1nnq/e3pn61c2g%22,%22/e3pmh1nnq/e3pn6eiep%22,%22/e3pmh1nnq/e3pra70uk%22,%22/e3pmh1nnq/e5anm31jb%22,%22/e3pmh1nnq/e7tl4e309%22&offset=0&limit=20"
+    RawListUrl: "https://china.huanqiu.com/"
+    Item: "list"
+    NewsUrl: "aid"
+    Title: "title"
+    Rank: ""
+    Author: ""
+    PublishTime: "ctime"
+    Abstract: "summary"
+    IsHot: ""
+    ImgUrl: "image"
+  - 
+    DataType: json
+    Parser: json
+    StoreType: mysql
+    Cron: "@every 5m"
+    DataSource: 环球网军事新闻
+    ListUrl: "https://mil.huanqiu.com/api/list?node=%22/e3pmh1dm8/e3pmt7hva%22,%22/e3pmh1dm8/e3pmtdr2r%22,%22/e3pmh1dm8/e3pn62l96%22,%22/e3pmh1dm8/e3pn6f3oh%22&offset=0&limit=20"
+    RawListUrl: "https://mil.huanqiu.com/"
+    Item: "list"
+    NewsUrl: "aid"
+    Title: "title"
+    Rank: ""
+    Author: ""
+    PublishTime: "ctime"
+    Abstract: "summary"
+    IsHot: ""
+    ImgUrl: "image"
