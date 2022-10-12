@@ -102,3 +102,37 @@ News:
     Abstract: "summary"
     IsHot: ""
     ImgUrl: "image"
+  - 
+    DataType: json
+    Parser: json
+    StoreType: mysql
+    Cron: "@every 5m"
+    DataSource: B站热搜
+    ListUrl: "https://api.bilibili.com/x/web-interface/search/square?limit=10"
+    RawListUrl: "https://www.bilibili.com/"
+    Item: "data.trending.list"
+    NewsUrl: "keyword"
+    Title: "keyword"
+    Rank: ""
+    Author: ""
+    PublishTime: ""
+    Abstract: "show_name"
+    IsHot: ""
+    ImgUrl: "image"
+  - 
+    DataType: html
+    Parser: css
+    StoreType: mysql
+    Cron: "@every 5s"
+    DataSource: 人民网热点
+    ListUrl: "http://www.people.com.cn/GB/59476/index.html"
+    RawListUrl: "http://www.people.com.cn/GB/59476/index.html"
+    Item: "li "
+    NewsUrl: "a "
+    Title: "a "
+    Rank: ""
+    Author: ""
+    PublishTime: ""
+    Abstract: ""
+    IsHot: ""
+    ImgUrl: ""
