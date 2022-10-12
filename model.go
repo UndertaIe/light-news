@@ -59,8 +59,9 @@ type NewsModel struct {
 	PublishTime time.Time `json:"publish_time" gorm:"column:publish_time"`
 	IsHot       bool      `json:"is_hot" gorm:"column:is_hot"`
 	ImgUrl      string    `json:"img_url" gorm:"column:img_url"`
-	ListUrl     string    `json:"list_url" gorm:"column:list_url"` // required
-	RawListUrl  string    `json:"page_url" gorm:"column:raw_url"`  // required
+	ListUrl     string    `json:"list_url" gorm:"column:list_url"`       // required
+	RawListUrl  string    `json:"page_url" gorm:"column:raw_url"`        // required
+	DataSource  string    `json:"data_source" gorm:"column:data_source"` // required
 }
 
 func (NewsModel) TableName() string {
