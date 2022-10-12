@@ -16,10 +16,12 @@ func NewJob(r *Rule) Job {
 		models, err := ps.Parse(r)
 		if err != nil {
 			log.Printf("parser.Parse(r) args:[%v], err msg:[%v]\n", r, err)
+			return
 		}
 		err = dataCheck.Check(models)
 		if err != nil {
 			log.Printf("dataCheck.Check(models) args:[%v], err msg:[%v]\n", r.DataSource, err)
+			return
 		}
 		syncStore(r, models)
 		log.Printf("job[DataSource: %s] has pawned %v items, elapsed time: %v", r.DataSource, len(models), time.Since(now))
