@@ -123,7 +123,7 @@ News:
     DataType: html
     Parser: css
     StoreType: mysql
-    Cron: "@every 5s"
+    Cron: "@every 5m"
     DataSource: 人民网热点
     ListUrl: "http://www.people.com.cn/GB/59476/index.html"
     RawListUrl: "http://www.people.com.cn/GB/59476/index.html"
@@ -133,6 +133,74 @@ News:
     Rank: ""
     Author: ""
     PublishTime: ""
+    Abstract: ""
+    IsHot: ""
+    ImgUrl: ""
+  - 
+    DataType: html
+    Parser: css
+    StoreType: mysql
+    Cron: "@every 5m"
+    DataSource: 新华社即时新闻
+    ListUrl: "http://www.xinhuanet.com/whxw.htm"
+    RawListUrl: "http://www.xinhuanet.com/whxw.htm"
+    Item: ".dataList .clearfix"
+    NewsUrl: "a "
+    Title: "a "
+    Rank: ""
+    Author: ""
+    PublishTime: "span"
+    Abstract: ""
+    IsHot: ""
+    ImgUrl: ""
+  - 
+    DataType: html
+    Parser: css
+    StoreType: mysql
+    Cron: "@every 5m"
+    DataSource: 新华社行业研报
+    ListUrl: "http://www.news.cn/fortunepro/yanbao/index.html" 
+    RawListUrl: "http://www.news.cn/fortunepro/yanbao/index.html"
+    Item: "#content-list .item"
+    NewsUrl: "span a "
+    Title: "span a "
+    Rank: ""
+    Author: ""
+    PublishTime: ".time"
+    Abstract: ""
+    IsHot: ""
+    ImgUrl: ""
+  - 
+    DataType: html
+    Parser: css
+    StoreType: mysql
+    Cron: "@every 5m"
+    DataSource: 新华社财经
+    ListUrl: "http://www.news.cn/fortunepro/youxuan/index.html" 
+    RawListUrl: "http://www.news.cn/fortunepro/youxuan/index.html"
+    Item: "#content-list .item"
+    NewsUrl: "span a "
+    Title: "span a "
+    Rank: ""
+    Author: ""
+    PublishTime: ".time"
+    Abstract: ""
+    IsHot: ""
+    ImgUrl: ""
+  - 
+    DataType: html
+    Parser: css
+    StoreType: mysql
+    Cron: "@every 5m"
+    DataSource: 新华社国际要闻
+    ListUrl: "http://www.news.cn/worldpro/gjxw/index.html"
+    RawListUrl: "http://www.news.cn/worldpro/gjxw/index.html"
+    Item: "#content-list .item"
+    NewsUrl: "span a "
+    Title: "span a "
+    Rank: ""
+    Author: ""
+    PublishTime: ".time"
     Abstract: ""
     IsHot: ""
     ImgUrl: ""

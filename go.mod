@@ -10,6 +10,7 @@ require (
 	github.com/spf13/cast v1.5.0
 	github.com/spf13/viper v1.13.0
 	github.com/tidwall/gjson v1.14.3
+	golang.org/x/net v0.0.0-20220520000938-2e3eb7b945c2
 	gorm.io/driver/mysql v1.4.0
 	gorm.io/gorm v1.24.0
 )
@@ -43,7 +44,6 @@ require (
 	github.com/tidwall/pretty v1.2.0 // indirect
 	github.com/ugorji/go/codec v1.2.7 // indirect
 	golang.org/x/crypto v0.0.0-20220411220226-7b82a4e95df4 // indirect
-	golang.org/x/net v0.0.0-20220520000938-2e3eb7b945c2 // indirect
 	golang.org/x/sys v0.0.0-20220520151302-bc2c85ada10a // indirect
 	golang.org/x/text v0.3.7 // indirect
 	google.golang.org/protobuf v1.28.0 // indirect
