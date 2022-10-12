@@ -9,6 +9,7 @@ import (
 	"github.com/UndertaIe/go-eden/str"
 	"github.com/spf13/cast"
 	"github.com/tidwall/gjson"
+	"golang.org/x/net/html/charset"
 )
 
 type ParserType string
@@ -43,7 +44,12 @@ func (cp *CSSParser) Parse(r *Rule) ([]*NewsModel, error) {
 	if err != nil {
 		return nil, err
 	}
-	docu, err := goquery.NewDocumentFromReader(resp.Body)
+	rd, err := charset.NewReader(resp.Body, "utf8")
+	if err != nil {
+		return nil, err
+	}
+	docu, err := goquery.NewDocumentFromReader(rd)
+
 	if err != nil {
 		return nil, err
 	}
@@ -62,6 +68,7 @@ func (cp *CSSParser) Parse(r *Rule) ([]*NewsModel, error) {
 		model.ImgUrl = trim(s.Find(r.ImgUrl).AttrOr("src", ""))
 		model.ListUrl = r.ListUrl
 		model.RawListUrl = r.RawListUrl
+		model.DataSource = r.DataSource
 		models = append(models, model)
 	})
 	return models, nil
