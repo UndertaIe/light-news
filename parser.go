@@ -63,13 +63,18 @@ func (cp *CSSParser) Parse(r *Rule) ([]*NewsModel, error) {
 		}
 		model.Author = trim(s.Find(r.Author).Text())
 		model.Abstract = trim(s.Find(r.Abstract).Text())
+		if str.Slen(model.Abstract) > 512 {
+			model.Abstract, _ = str.SubString(model.Abstract, 0, 512)
+		}
 		model.PublishTime = time.Now() // s.Find(r.PublishTime).Text()
 		model.IsHot = isHot(s.Find(r.IsHot).Text())
 		model.ImgUrl = trim(s.Find(r.ImgUrl).AttrOr("src", ""))
 		model.ListUrl = r.ListUrl
 		model.RawListUrl = r.RawListUrl
 		model.DataSource = r.DataSource
-		models = append(models, model)
+		if model.NewsUrl != "" || model.Title != "" {
+			models = append(models, model)
+		}
 	})
 	return models, nil
 }
@@ -112,6 +117,7 @@ func (cp *JSONParser) Parse(r *Rule) ([]*NewsModel, error) {
 		model.ImgUrl = trim(item.Get(r.ImgUrl).String())
 		model.ListUrl = r.ListUrl
 		model.RawListUrl = r.RawListUrl
+		model.DataSource = r.DataSource
 		if model.NewsUrl != "" || model.Title != "" {
 			models = append(models, model)
 		}
