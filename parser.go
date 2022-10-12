@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/PuerkitoBio/goquery"
+	"github.com/UndertaIe/go-eden/str"
 	"github.com/spf13/cast"
 	"github.com/tidwall/gjson"
 )
@@ -96,6 +97,9 @@ func (cp *JSONParser) Parse(r *Rule) ([]*NewsModel, error) {
 		}
 		model.Author = trim(item.Get(r.Author).String())
 		model.Abstract = trim(item.Get(r.Abstract).String())
+		if str.Slen(model.Abstract) > 512 {
+			model.Abstract, _ = str.SubString(model.Abstract, 0, 512)
+		}
 		model.PublishTime = time.Now()
 		model.IsHot = isHot(item.Get(r.IsHot).String())
 		model.ImgUrl = trim(item.Get(r.ImgUrl).String())

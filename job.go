@@ -28,28 +28,28 @@ func NewJob(r *Rule) Job {
 }
 
 // 连接数过多，运行多个go协程时将*gorm.DB复制了多次
-func asyncStore(r *Rule, models []*NewsModel) {
-	store := storerRegistry.GetStorer(r.StoreType)
-	var wg sync.WaitGroup
-	for _, m := range models {
-		wg.Add(1)
-		go func(mm *NewsModel) {
-			err := store.Store(mm)
-			if err != nil {
-				log.Printf("asyncStore args:[%v], err msg:[%v]\n", mm, err)
-			}
-			wg.Done()
-		}(m)
-	}
-	wg.Wait()
-}
+// func asyncStore(r *Rule, models []*NewsModel) {
+// 	store := storerRegistry.GetStorer(r.StoreType)
+// 	var wg sync.WaitGroup
+// 	for _, m := range models {
+// 		wg.Add(1)
+// 		go func(mm *NewsModel) {
+// 			err := store.Store(mm)
+// 			if err != nil {
+// 				log.Printf("asyncStore args:[%v], err msg:[%v]\n", mm, err)
+// 			}
+// 			wg.Done()
+// 		}(m)
+// 	}
+// 	wg.Wait()
+// }
 
 func syncStore(r *Rule, models []*NewsModel) {
 	store := storerRegistry.GetStorer(r.StoreType)
 	for _, m := range models {
 		err := store.Store(m)
 		if err != nil {
-			log.Printf("asyncStore args:[%v], err msg:[%v]\n", m, err)
+			log.Printf("syncStore args:[%v], err msg:[%v]\n", m, err)
 		}
 	}
 }
