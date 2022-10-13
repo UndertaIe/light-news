@@ -61,7 +61,7 @@ func (ms *MySQLStorer) Store(m *NewsModel) error {
 	if n == 0 {
 		return db.Create(m).Error
 	}
-	return db.Model(&t).Where("news_url = ? and rank < ?", m.NewsUrl, m.Rank).Update("rank", m.Rank).Error
+	return db.Model(&t).Where("news_url = ? and rank > ?", m.NewsUrl, m.Rank).Update("rank", m.Rank).Error
 }
 
 type DummyStorer struct {
