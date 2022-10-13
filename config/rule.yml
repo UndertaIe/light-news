@@ -204,3 +204,20 @@ News:
     Abstract: ""
     IsHot: ""
     ImgUrl: ""
+  - 
+    DataType: html
+    Parser: css
+    StoreType: mysql
+    Cron: "@every 5m"
+    DataSource: 中新网即时新闻
+    ListUrl: "https://www.chinanews.com.cn/scroll-news/news1.html"
+    RawListUrl: "https://www.chinanews.com.cn/scroll-news/news1.html"
+    Item: ".content_list ul li"
+    NewsUrl: ".dd_bt a "
+    Title: ".dd_bt a "
+    Rank: ""
+    Author: ""
+    PublishTime: ".dd_time "
+    Abstract: ""
+    IsHot: ""
+    ImgUrl: ""

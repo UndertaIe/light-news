@@ -7,6 +7,7 @@ import (
 
 	"github.com/PuerkitoBio/goquery"
 	"github.com/UndertaIe/go-eden/str"
+	"github.com/UndertaIe/go-eden/utils"
 	"github.com/spf13/cast"
 	"github.com/tidwall/gjson"
 	"golang.org/x/net/html/charset"
@@ -40,6 +41,7 @@ type CSSParser struct{}
 
 func (cp *CSSParser) Parse(r *Rule) ([]*NewsModel, error) {
 	var models []*NewsModel
+	var err error
 	resp, err := http.Get(r.ListUrl)
 	if err != nil {
 		return nil, err
@@ -56,7 +58,16 @@ func (cp *CSSParser) Parse(r *Rule) ([]*NewsModel, error) {
 	docu.Find(r.Item).Each(func(i int, s *goquery.Selection) {
 		model := new(NewsModel)
 		model.NewsUrl = trim(s.Find(r.NewsUrl).AttrOr("href", ""))
+		if model.NewsUrl == "" {
+			model.NewsUrl = trim(s.Find(r.NewsUrl).Text())
+		}
+		if model.NewsUrl != "" {
+			model.NewsUrl, err = utils.UrlJoin(r.ListUrl, model.NewsUrl)
+		}
 		model.Title = trim(s.Find(r.Title).Text())
+		if str.Slen(model.Title) > 64 {
+			model.Title, _ = str.SubString(model.Title, 0, 60)
+		}
 		model.Rank = cast.ToInt16(trim(s.Find(r.Rank).Text()))
 		if model.Rank == 0 {
 			model.Rank = cast.ToInt16(i) + 1
@@ -76,6 +87,9 @@ func (cp *CSSParser) Parse(r *Rule) ([]*NewsModel, error) {
 			models = append(models, model)
 		}
 	})
+	if err != nil { // 处理遍历items error
+		return nil, err
+	}
 	return models, nil
 }
 
