@@ -1,0 +1,21 @@
+News: 
+# https://www.w3school.com.cn/cssref/css_selectors.asp
+  - 
+    DataType: html
+    Parser: css
+    StoreType: 
+      - mysql
+      - es
+    Cron: "@every 10s"
+    DataSource: 百度热搜
+    ListUrl: "https://top.baidu.com/board?tab=realtime"
+    RawListUrl: "https://top.baidu.com/board?tab=realtime"
+    Item: ".category-wrap_iQLoo "
+    NewsUrl: ".title_dIF3B  "
+    Title: ".c-single-text-ellipsis "
+    Rank: ".index_1Ew5p "
+    Author: ""
+    PublishTime: ""
+    Abstract: ".large_nSuFU "
+    IsHot: ".c-text-hot_3ZhI9 "
+    ImgUrl: ".img-wrapper_29V76 img "

@@ -3,7 +3,9 @@ News:
   - 
     DataType: html
     Parser: css
-    StoreType: mysql
+    StoreType: 
+      - mysql
+      - es
     Cron: "@every 5m"
     DataSource: 百度热搜
     ListUrl: "https://top.baidu.com/board?tab=realtime"
@@ -20,7 +22,9 @@ News:
   - 
     DataType: json
     Parser: json
-    StoreType: mysql
+    StoreType: 
+      - mysql
+      - es
     Cron: "@every 5m"
     DataSource: 央视国内新闻
     ListUrl: "https://news.cctv.com/2019/07/gaiban/cmsdatainterface/page/china_1.jsonp?cb=china"
@@ -37,7 +41,9 @@ News:
   - 
     DataType: json
     Parser: json
-    StoreType: mysql
+    StoreType: 
+      - mysql
+      - es
     Cron: "@every 5m"
     DataSource: 央视国际新闻
     ListUrl: "https://news.cctv.com/2019/07/gaiban/cmsdatainterface/page/world_1.jsonp?cb=world"
@@ -54,7 +60,9 @@ News:
   - 
     DataType: json
     Parser: json
-    StoreType: mysql
+    StoreType: 
+      - mysql
+      - es
     Cron: "@every 5m"
     DataSource: 环球网国际新闻
     ListUrl: "https://world.huanqiu.com/api/list?node=%22/e3pmh22ph/e3pmh2398%22,%22/e3pmh22ph/e3pmh26vv%22,%22/e3pmh22ph/e3pn6efsl%22,%22/e3pmh22ph/efp8fqe21%22&offset=0&limit=20"
@@ -71,7 +79,9 @@ News:
   - 
     DataType: json
     Parser: json
-    StoreType: mysql
+    StoreType: 
+      - mysql
+      - es
     Cron: "@every 5m"
     DataSource: 环球网国内新闻
     ListUrl: "https://china.huanqiu.com/api/list?node=%22/e3pmh1nnq/e3pmh1obd%22,%22/e3pmh1nnq/e3pn61c2g%22,%22/e3pmh1nnq/e3pn6eiep%22,%22/e3pmh1nnq/e3pra70uk%22,%22/e3pmh1nnq/e5anm31jb%22,%22/e3pmh1nnq/e7tl4e309%22&offset=0&limit=20"
@@ -88,7 +98,9 @@ News:
   - 
     DataType: json
     Parser: json
-    StoreType: mysql
+    StoreType: 
+      - mysql
+      - es
     Cron: "@every 5m"
     DataSource: 环球网军事新闻
     ListUrl: "https://mil.huanqiu.com/api/list?node=%22/e3pmh1dm8/e3pmt7hva%22,%22/e3pmh1dm8/e3pmtdr2r%22,%22/e3pmh1dm8/e3pn62l96%22,%22/e3pmh1dm8/e3pn6f3oh%22&offset=0&limit=20"
@@ -105,7 +117,9 @@ News:
   - 
     DataType: json
     Parser: json
-    StoreType: mysql
+    StoreType: 
+      - mysql
+      - es
     Cron: "@every 5m"
     DataSource: B站热搜
     ListUrl: "https://api.bilibili.com/x/web-interface/search/square?limit=10"
@@ -122,7 +136,9 @@ News:
   - 
     DataType: html
     Parser: css
-    StoreType: mysql
+    StoreType: 
+      - mysql
+      - es
     Cron: "@every 5m"
     DataSource: 人民网热点
     ListUrl: "http://www.people.com.cn/GB/59476/index.html"
@@ -139,7 +155,9 @@ News:
   - 
     DataType: html
     Parser: css
-    StoreType: mysql
+    StoreType: 
+      - mysql
+      - es
     Cron: "@every 5m"
     DataSource: 新华社即时新闻
     ListUrl: "http://www.xinhuanet.com/whxw.htm"
@@ -156,7 +174,9 @@ News:
   - 
     DataType: html
     Parser: css
-    StoreType: mysql
+    StoreType: 
+      - mysql
+      - es
     Cron: "@every 5m"
     DataSource: 新华社行业研报
     ListUrl: "http://www.news.cn/fortunepro/yanbao/index.html" 
@@ -173,7 +193,9 @@ News:
   - 
     DataType: html
     Parser: css
-    StoreType: mysql
+    StoreType: 
+      - mysql
+      - es
     Cron: "@every 5m"
     DataSource: 新华社财经
     ListUrl: "http://www.news.cn/fortunepro/youxuan/index.html" 
@@ -190,7 +212,9 @@ News:
   - 
     DataType: html
     Parser: css
-    StoreType: mysql
+    StoreType: 
+      - mysql
+      - es
     Cron: "@every 5m"
     DataSource: 新华社国际要闻
     ListUrl: "http://www.news.cn/worldpro/gjxw/index.html"
@@ -207,7 +231,9 @@ News:
   - 
     DataType: html
     Parser: css
-    StoreType: mysql
+    StoreType: 
+      - mysql
+      - es
     Cron: "@every 5m"
     DataSource: 中新网即时新闻
     ListUrl: "https://www.chinanews.com.cn/scroll-news/news1.html"

@@ -1,9 +1,15 @@
 package main
 
 import (
+	"bytes"
 	"context"
 	"log"
+	"net/url"
+	"strings"
 
+	"github.com/elastic/go-elasticsearch/v8"
+	"github.com/goccy/go-json"
+	"github.com/spf13/cast"
 	"gorm.io/gorm"
 )
 
@@ -26,12 +32,12 @@ func SelectStorer(t StoreType) (Storer, error) {
 	case DummyStoreT:
 		return NewDummyStorer(), nil
 	case MySQLStorerT:
-		return NewMySQLStorer(&dbSettings), nil
+		return NewMySQLStorer(dbSettings), nil
+	case ESStoreT:
+		return NewElasticStorerr(elasticSettings), nil
 	case MongoStorerT:
 		return nil, ErrStorerNotFound
 	case KafkaStorerT:
-		return nil, ErrStorerNotFound
-	case ESStoreT:
 		return nil, ErrStorerNotFound
 	}
 	return nil, ErrStorerNotFound
@@ -73,4 +79,48 @@ func NewDummyStorer() *DummyStorer {
 
 func (ds *DummyStorer) Store(m *NewsModel) error {
 	return nil
+}
+
+type ElasticStorer struct {
+	cli       *elasticsearch.Client
+	eSettings *ElasticSetting
+}
+
+func NewElasticStorerr(s *ElasticSetting) *ElasticStorer {
+	cli, err := NewElasticClient(s)
+	if err != nil {
+		panic(err)
+	}
+	return &ElasticStorer{cli: cli, eSettings: s}
+}
+
+var updateTmpl = `{
+	"script": {
+		"source": "if (ctx._source.rank > params.rank ) {ctx._source.rank = params.rank}",
+		"params": {"rank": <RANK>}
+	}
+}`
+
+func (es *ElasticStorer) Store(m *NewsModel) error {
+	payload, _ := json.Marshal(m)
+	r := bytes.NewReader(payload)
+	Index := es.eSettings.Index
+	escapedUrl := url.PathEscape(m.NewsUrl)
+	resp, err := es.cli.Get(Index, escapedUrl)
+	if err != nil {
+		return err
+	}
+	if resp.StatusCode == 404 {
+		_, err := es.cli.Create(Index, escapedUrl, r)
+		if err != nil {
+			return err
+		}
+	}
+	_, err = es.cli.Update(
+		Index,
+		escapedUrl,
+		strings.NewReader(strings.ReplaceAll(updateTmpl, "<RANK>", cast.ToString(m.Rank))),
+		es.cli.Update.WithPretty(),
+	)
+	return err
 }

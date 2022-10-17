@@ -2,7 +2,6 @@ Server:
   HttpPort: 8000
   ReadTimeout: 60
   WriteTimeout: 60
-  LogOut: stdio
 MySQL:
   UserName: root
   Password: mysql
@@ -15,3 +14,9 @@ Redis:
   Db: 0
   Password: redis
   DefaultExpireTime: 30
+Elastic:
+  Hosts:
+    - "http://192.168.3.200:9200"
+  ServiceToken: ""
+  Index: light_news
+

@@ -1,0 +1,22 @@
+Server:
+  HttpPort: 8000
+  ReadTimeout: 60
+  WriteTimeout: 60
+MySQL:
+  UserName: root
+  Password: mysql
+  Host: 127.0.0.1:3306
+  DBName: light_news
+  Charset: utf8
+  ParseTime: True
+Redis:
+  Host: 127.0.0.1:6379
+  Db: 0
+  Password: redis
+  DefaultExpireTime: 30
+Elastic:
+  Hosts:
+    - "http://192.168.3.200:9200"
+  ServiceToken: ""
+  Index: light_news
+

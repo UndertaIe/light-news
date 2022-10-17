@@ -16,5 +16,6 @@ CREATE TABLE `news_model` (
   `raw_url` varchar(256) NOT NULL DEFAULT '',
   `data_source` varchar(32) NOT NULL DEFAULT '',
   PRIMARY KEY (`news_id`),
-  UNIQUE KEY `uk_news_url` (`news_url`)
-) ENGINE=InnoDB AUTO_INCREMENT=7999 DEFAULT CHARSET=utf8;
+  UNIQUE KEY `uk_news_url` (`news_url`),
+  KEY `idx_publish_time` (`publish_time`)
+) ENGINE=InnoDB AUTO_INCREMENT=13359 DEFAULT CHARSET=utf8

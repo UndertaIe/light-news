@@ -7,6 +7,19 @@ import (
 	"github.com/robfig/cron/v3"
 )
 
+func RunScheduler() {
+	var rules []Rule
+	err := rvp.UnmarshalKey("News", &rules)
+	if err != nil {
+		log.Fatalln("vp.UnmarshalKey err: ", err)
+	}
+	for _, r := range rules {
+		DefaultScheduler.AddJob(r)
+	}
+	log.Println("scheduler is running...")
+	DefaultScheduler.Run()
+}
+
 var (
 	DefaultScheduler *Scheduler = NewScheduler()
 )
@@ -31,10 +44,15 @@ func NewScheduler() *Scheduler {
 	return sch
 }
 
-func (s *Scheduler) Start() {
-	s.cr.Start()
-
+func (s *Scheduler) Run() {
+	s.cr.Run()
 }
+
+func (s *Scheduler) Stop() {
+	ctx := s.cr.Stop()
+	<-ctx.Done()
+}
+
 func (s *Scheduler) loop() {
 	go func() {
 		for {

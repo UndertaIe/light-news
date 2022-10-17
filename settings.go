@@ -2,6 +2,12 @@ package main
 
 import "time"
 
+// run init in main
+var (
+	dbSettings      *DBSetting
+	elasticSettings *ElasticSetting
+)
+
 type ServerSetting struct {
 	HttpPort     int
 	ReadTimeout  time.Duration
@@ -23,4 +29,10 @@ type RedisSetting struct {
 	Db                int
 	Password          string
 	DefaultExpireTime int
+}
+
+type ElasticSetting struct {
+	Hosts        []string
+	ServiceToken string
+	Index        string
 }

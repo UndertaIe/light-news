@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	"log"
 	"time"
 )
 
@@ -23,7 +23,7 @@ func (t NewsType) IsJSON() bool {
 type Rule struct {
 	DataType   NewsType
 	Parser     ParserType
-	StoreType  StoreType
+	StoreType  []StoreType
 	Cron       string
 	DataSource string
 	ListUrl    string
@@ -42,7 +42,7 @@ type Rule struct {
 
 func (r Rule) Job() func() {
 	return func() {
-		fmt.Println("job init")
+		log.Println("job init")
 	}
 }
 

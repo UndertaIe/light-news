@@ -23,31 +23,13 @@ func NewJob(r *Rule) Job {
 			log.Printf("dataCheck.Check(models) args:[%v], err msg:[%v]\n", r.DataSource, err)
 			return
 		}
-		syncStore(r, models)
-		log.Printf("job[DataSource: %s] has pawned %v items, elapsed time: %v", r.DataSource, len(models), time.Since(now))
+		asyncWrite(r, models)
+		log.Printf("job[DataSource: %s] has pawned %v items, write to %v, elapsed time: %v", r.DataSource, len(models), r.StoreType, time.Since(now))
 	}
 	return job
 }
 
-// 连接数过多，运行多个go协程时将*gorm.DB复制了多次
-// func asyncStore(r *Rule, models []*NewsModel) {
-// 	store := storerRegistry.GetStorer(r.StoreType)
-// 	var wg sync.WaitGroup
-// 	for _, m := range models {
-// 		wg.Add(1)
-// 		go func(mm *NewsModel) {
-// 			err := store.Store(mm)
-// 			if err != nil {
-// 				log.Printf("asyncStore args:[%v], err msg:[%v]\n", mm, err)
-// 			}
-// 			wg.Done()
-// 		}(m)
-// 	}
-// 	wg.Wait()
-// }
-
-func syncStore(r *Rule, models []*NewsModel) {
-	store := storerRegistry.GetStorer(r.StoreType)
+func syncWrite(store Storer, r *Rule, models []*NewsModel) {
 	for _, m := range models {
 		err := store.Store(m)
 		if err != nil {
@@ -56,24 +38,42 @@ func syncStore(r *Rule, models []*NewsModel) {
 	}
 }
 
+func asyncWrite(r *Rule, models []*NewsModel) {
+	stores := storerRegistry.GetStorers(r.StoreType)
+	var wg sync.WaitGroup
+	for _, store := range stores {
+		go func(store Storer) {
+			defer wg.Done()
+			syncWrite(store, r, models)
+		}(store)
+
+		wg.Add(1)
+	}
+	wg.Wait()
+}
+
 var storerRegistry StorerRegistry
 
 type StorerRegistry struct {
 	stores sync.Map // {StoreType: Storer}
 }
 
-func (sr *StorerRegistry) GetStorer(t StoreType) Storer {
-	if storerI, ok := sr.stores.Load(t); ok {
-		storer, _ := storerI.(Storer)
-		return storer
+func (sr *StorerRegistry) GetStorers(st []StoreType) []Storer {
+	var storers []Storer
+	for _, t := range st {
+		if storerI, ok := sr.stores.Load(t); ok {
+			storers = append(storers, storerI.(Storer))
+			continue
+		}
+		storer, err := SelectStorer(t)
+		if err != nil {
+			log.Fatalf("SelectStorer(t) err args:[%v], msg:[%v]\n", t, err)
+		}
+		log.Println("init store success. StoreType: ", t)
+		sr.stores.Store(t, storer)
+		storers = append(storers, storer)
 	}
-	storer, err := SelectStorer(t)
-	if err != nil {
-		log.Fatalf("SelectStorer(t) err args:[%v], msg:[%v]\n", t, err)
-	}
-	log.Println("init store success. StoreType: ", t)
-	sr.stores.Store(t, storer)
-	return storer
+	return storers
 }
 
 var parserRegistry ParserRegistry

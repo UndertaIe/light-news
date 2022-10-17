@@ -3,11 +3,10 @@ package main
 import (
 	"fmt"
 
+	"github.com/elastic/go-elasticsearch/v8"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
-
-var dbSettings DBSetting
 
 func NewDBEngine(s *DBSetting) (*gorm.DB, error) {
 	dsn := fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=%s&parseTime=%t&loc=Local", s.UserName, s.Password, s.Host, s.DBName, s.Charset, s.ParseTime)
@@ -24,4 +23,15 @@ func NewDBEngine(s *DBSetting) (*gorm.DB, error) {
 		return nil, err
 	}
 	return db, nil
+}
+
+func NewElasticClient(s *ElasticSetting) (*elasticsearch.Client, error) {
+	cfg := elasticsearch.Config{
+		Addresses: s.Hosts,
+	}
+	if s.ServiceToken != "" {
+		cfg.ServiceToken = s.ServiceToken
+	}
+	cli, err := elasticsearch.NewClient(cfg)
+	return cli, err
 }
