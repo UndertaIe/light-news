@@ -4,7 +4,7 @@ go 1.18
 
 require (
 	github.com/PuerkitoBio/goquery v1.8.0
-	github.com/UndertaIe/go-eden v0.0.4
+	github.com/UndertaIe/go-eden v0.0.5
 	github.com/elastic/go-elasticsearch/v8 v8.4.0
 	github.com/gin-gonic/gin v1.8.1
 	github.com/goccy/go-json v0.9.7
