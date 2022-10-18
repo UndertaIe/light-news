@@ -46,6 +46,7 @@ func (cp *CSSParser) Parse(r *Rule) ([]*NewsModel, error) {
 	if err != nil {
 		return nil, err
 	}
+	defer resp.Body.Close() // 关闭连接
 	rd, err := charset.NewReader(resp.Body, "utf8")
 	if err != nil {
 		return nil, err
@@ -107,6 +108,7 @@ func (cp *JSONParser) Parse(r *Rule) ([]*NewsModel, error) {
 	if err != nil {
 		return nil, err
 	}
+	defer resp.Body.Close() // 关闭连接
 	bytes, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
