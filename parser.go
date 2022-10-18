@@ -117,6 +117,9 @@ func (cp *JSONParser) Parse(r *Rule) ([]*NewsModel, error) {
 		model := new(NewsModel)
 		model.NewsUrl = trim(item.Get(r.NewsUrl).String())
 		model.Title = trim(item.Get(r.Title).String())
+		if str.Slen(model.Title) > 64 {
+			model.Title, _ = str.SubString(model.Title, 0, 60)
+		}
 		model.Rank = cast.ToInt16(trim(item.Get(r.Rank).String()))
 		if model.Rank == 0 {
 			model.Rank = cast.ToInt16(key.String()) + 1
