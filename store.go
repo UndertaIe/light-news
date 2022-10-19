@@ -112,7 +112,8 @@ func (es *ElasticStorer) Store(m *NewsModel) error {
 		return err
 	}
 	if resp.StatusCode == 404 {
-		_, err := es.cli.Create(Index, escapedUrl, r)
+		resp3, err := es.cli.Create(Index, escapedUrl, r)
+		defer resp3.Body.Close()
 		if err != nil {
 			return err
 		}
