@@ -1,0 +1,29 @@
+{
+	"info": {
+		"_postman_id": "581d471c-11eb-4543-bfef-5ac8b68b47ac",
+		"name": "light-news",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "搜索新闻",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{env}}/api/v1/search/乌克兰",
+					"host": [
+						"{{env}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"search",
+						"乌克兰"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -24,8 +24,14 @@ func Handlers() *gin.Engine {
 	return r
 }
 
-// 关键词搜索，按照时间排序
-//! 数据冗余
+// Get godoc
+// @Summary     关键词搜索
+// @Description  关键词搜索新闻, 按照时间排序
+// @Tags         News
+// @Produce      json
+// @Param        id   path      string  true  "关键字"
+// @Success      200  {object}  []NewsModel  "成功"
+// @Router       /api/v1/search/{key} [get]
 func SearchFunc(c *gin.Context) {
 	resp := app.NewResponse(c)
 	keywd := c.Param("key")
