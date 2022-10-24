@@ -10,7 +10,7 @@
             "request": "launch",
             "mode": "auto",
             "program": "./",
-            "args": ["schedule", "--rules_file", "rules_test"]
+            "args": ["serve"]
         }
     ]
 }

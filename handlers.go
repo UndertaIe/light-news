@@ -64,13 +64,27 @@ func NewsFunc(c *gin.Context) {
 	// TODO:
 }
 
+// deprecated query
 // 多字段查询
 // {"query": { "multi_match" : { "query": "<KEY>","fields": [ "title", "abstract" ]}}}
-func QueryMatchReader(keywd string) io.Reader {
+func _QueryMatchReader(keywd string) io.Reader {
 	var bb = new(bytes.Buffer)
 	bb.WriteString(`{"query": { "multi_match" : { "query": "`)
 	bb.WriteString(keywd)
 	bb.WriteString(`", "fields": [ "title", "abstract" ]}}}`)
+	return bb
+}
+
+// 多字段查询
+
+// { "query": { "bool":{ "should": [ { "match_phrase": { "title": "<KEY>" } }, { "match_phrase": { "abstract": "<KEY>" } } ] } } }
+func QueryMatchReader(keywd string) io.Reader {
+	var bb = new(bytes.Buffer)
+	bb.WriteString(`{ "query": { "bool":{ "should": [ { "match_phrase": { "title": "`)
+	bb.WriteString(keywd)
+	bb.WriteString(`" } }, { "match_phrase": { "abstract": "`)
+	bb.WriteString(keywd)
+	bb.WriteString(`" } } ] } } }`)
 	return bb
 }
 
