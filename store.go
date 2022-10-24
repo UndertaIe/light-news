@@ -107,20 +107,26 @@ func (es *ElasticStorer) Store(m *NewsModel) error {
 	Index := es.eSettings.Index
 	escapedUrl := url.PathEscape(m.NewsUrl)
 	resp, err := es.cli.Get(Index, escapedUrl)
+	defer resp.Body.Close()
 	if err != nil {
 		return err
 	}
 	if resp.StatusCode == 404 {
-		_, err := es.cli.Create(Index, escapedUrl, r)
+		resp3, err := es.cli.Create(Index, escapedUrl, r)
+		defer resp3.Body.Close()
 		if err != nil {
 			return err
 		}
 	}
-	_, err = es.cli.Update(
+	resp2, err := es.cli.Update(
 		Index,
 		escapedUrl,
 		strings.NewReader(strings.ReplaceAll(updateTmpl, "<RANK>", cast.ToString(m.Rank))),
 		es.cli.Update.WithPretty(),
 	)
-	return err
+	if err != nil {
+		return err
+	}
+	defer resp2.Body.Close()
+	return nil
 }
