@@ -6,6 +6,7 @@ require (
 	github.com/PuerkitoBio/goquery v1.8.0
 	github.com/UndertaIe/go-eden v0.0.5
 	github.com/elastic/go-elasticsearch/v8 v8.4.0
+	github.com/gin-gonic/contrib v0.0.0-20201101042839-6a891bf89f19
 	github.com/gin-gonic/gin v1.8.1
 	github.com/goccy/go-json v0.9.7
 	github.com/robfig/cron/v3 v3.0.1

@@ -9,11 +9,13 @@ import (
 	"github.com/UndertaIe/go-eden/app"
 	"github.com/UndertaIe/go-eden/errcode"
 	"github.com/elastic/go-elasticsearch/v8/esapi"
+	"github.com/gin-gonic/contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
 func Handlers() *gin.Engine {
 	r := gin.Default()
+	r.Use(cors.Default())
 	v1 := r.Group("/api/v1/")
 	{
 		v1.GET("/search/:key", SearchFunc)
