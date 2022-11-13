@@ -1,9 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react"
-import { RouteComponentProps } from "@reach/router"
-
 import { message } from "antd"
 import "antd/dist/antd.min.css"
+import { RouteComponentProps } from "@reach/router"
 
 import SearchInput from "../components/Search"
 import SearchService from "../services/search"
@@ -14,13 +13,14 @@ const Search: React.FC<RouteComponentProps> = (props) => {
   let [loading, setLoading] = useState<boolean>(false)
   let [items, setItems] = useState<NewsItem[]>([])
   let [pagination, setPagination] = useState({
-    pn: 1,
+    pn: 0,
     ps: 10,
   })
-  let [isInit, setInit] = useState(true)
+
   const handleSearch = () => {
+    console.log("search!")
     setItems([]) // 清空列表
-    appendData()
+    setPagination({pn: 1,ps: 10})
   }
 
   const appendData = () => {
@@ -38,13 +38,11 @@ const Search: React.FC<RouteComponentProps> = (props) => {
   }
 
   useEffect(() => {
-    if (isInit) {
-      setInit(false)
-    }else{
-      appendData()
+    if (pagination.pn === 0) {
+      return
     }
-    
-  }, [pagination])
+    appendData()
+  }, [pagination, ])
 
   const handleScroll = (e: React.UIEvent<HTMLElement, UIEvent>) => {
     if (e.currentTarget.scrollHeight <= e.currentTarget.scrollTop + e.currentTarget.clientHeight) {
